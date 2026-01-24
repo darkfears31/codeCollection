@@ -80,6 +80,9 @@ class funcs{
                             switch(randomMovingDirection){
                                 case 1:
                                 if(row-1!=0){ //Can't go inside wall.
+                                    if(mapAfterEnemiesMoving[row-1][column]=='X'){
+                                        lost = true; //Player collided with enemy
+                                    }
                                     swap(mapAfterEnemiesMoving[row][column], mapAfterEnemiesMoving[row-1][column]);
                                     enemyMoved = true; //To stop while loop.
                                 }
@@ -87,6 +90,9 @@ class funcs{
 
                                 case 2:
                                 if(row+1!=19){ //Can't go inside wall.
+                                    if(mapAfterEnemiesMoving[row+1][column]=='X'){
+                                        lost = true; //Player collided with enemy
+                                    }
                                     swap(mapAfterEnemiesMoving[row][column], mapAfterEnemiesMoving[row+1][column]);
                                     enemyMoved = true; //To stop while loop.
                                 }
@@ -94,6 +100,9 @@ class funcs{
                                 
                                 case 3:
                                 if(column-1!=0){ //Can't go inside wall.
+                                    if(mapAfterEnemiesMoving[row][column-1]=='X'){
+                                        lost = true; //Player collided with enemy
+                                    }
                                     swap(mapAfterEnemiesMoving[row][column], mapAfterEnemiesMoving[row][column-1]);
                                     enemyMoved = true; //To stop while loop.
                                 }
@@ -101,6 +110,9 @@ class funcs{
                                 
                                 case 4:
                                 if(column+1!=39){ //Can't go inside wall.
+                                    if(mapAfterEnemiesMoving[row][column+1]=='X'){
+                                        lost = true; //Player collided with enemy
+                                    }
                                     swap(mapAfterEnemiesMoving[row][column], mapAfterEnemiesMoving[row][column+1]);
                                     enemyMoved = true; //To stop while loop.
                                 }
@@ -122,7 +134,7 @@ class funcs{
         if(currentRow-1==0) printw("Can't go there.\n"); //end of map or player.
         else if(mapAfterMovingUp[currentRow-1][currentColumn]=='O'){
             currentRow--;
-            mapAfterMovingUp[currentRow][currentColumn] = 'O'; //Player got devoured by enemy.
+            mapAfterMovingUp[currentRow][currentColumn] = ' '; //Player got devoured by enemy.
             mapAfterMovingUp[currentRow+1][currentColumn]=' '; // To indicate that player moved.
             clear();
             displayMap(mapAfterMovingUp);
@@ -142,7 +154,7 @@ class funcs{
         if(currentRow+1==19) printw("Can't go there.\n"); //end of map or player.
         else if(mapAfterMovingDown[currentRow+1][currentColumn]=='O'){
             currentRow++;
-            mapAfterMovingDown[currentRow][currentColumn] = 'O'; //Player got devoured by enemy.
+            mapAfterMovingDown[currentRow][currentColumn] = ' '; //Player got devoured by enemy.
             mapAfterMovingDown[currentRow-1][currentColumn]=' '; // To indicate that player moved.
             clear();
             displayMap(mapAfterMovingDown);
@@ -162,7 +174,7 @@ class funcs{
         if(currentColumn+1==39) printw("Can't go there.\n"); //end of map or player.
         else if(mapAfterMovingRight[currentRow][currentColumn+1]=='O'){
             currentColumn++;
-            mapAfterMovingRight[currentRow][currentColumn] = 'O'; //Player got devoured by enemy.
+            mapAfterMovingRight[currentRow][currentColumn] = ' '; //Player got devoured by enemy.
             mapAfterMovingRight[currentRow][currentColumn-1]=' '; // To indicate that player moved.
             clear();
             displayMap(mapAfterMovingRight);
@@ -182,7 +194,7 @@ class funcs{
         if(currentColumn-1==0) printw("Can't go there.\n"); //end of map or player.
         else if(mapAfterMovingLeft[currentRow][currentColumn-1]=='O'){
             currentColumn--;
-            mapAfterMovingLeft[currentRow][currentColumn] = 'O'; //Player got devoured by enemy.
+            mapAfterMovingLeft[currentRow][currentColumn] = ' '; //Player got devoured by enemy.
             mapAfterMovingLeft[currentRow][currentColumn+1]=' '; // To indicate that player moved.
             clear();
             displayMap(mapAfterMovingLeft);
