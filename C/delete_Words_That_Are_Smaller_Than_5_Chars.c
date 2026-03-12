@@ -2,12 +2,12 @@
 #include <string.h>
 #include <stdlib.h>
 
-int main(){
+int main(int argc, char *argv[]){
 
     char word[50];
     FILE *fptr1;
     FILE *fptr2;
-    if((fptr1=fopen("words.txt","r"))==NULL){
+    if((fptr1=fopen(argv[1],"r"))==NULL){
         printf("Can't open file.");
         return -1;
     }
@@ -23,9 +23,9 @@ int main(){
         }
     }
     fclose(fptr1);
-    remove("words.txt");
+    remove(argv[1]);
     fclose(fptr2);
-    rename("temp.txt", "words.txt");
+    rename("temp.txt", argv[1]);
 
 
 
