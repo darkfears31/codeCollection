@@ -1,0 +1,37 @@
+class Solution {
+public:
+    bool isHappy(int n){
+        if(n==1) return true;
+        vector<int> v; //Stores each digit of number.
+        vector<int> seen; //Detects if Sum is seen to avoid looping forever.
+        string num = to_string(n);
+        for (char c:num){
+            int x=c-'0';
+            v.push_back(x);
+        }
+        while(true){
+            int sum{0};
+            for(int i=0;i<v.size();i++){
+                sum += v[i]*v[i];
+            }
+            if(sum==1) return true;
+            bool repeated = false;
+            for (int s : seen) {
+                if (s == sum) {
+                    repeated = true;
+                    break; // If sum is seen breaks loop to avoid looping anymore. returns false.
+                }
+            }
+            if (repeated) return false; // unhappy, exit immediately
+            seen.push_back(sum); // remember this sum
+
+            v.clear();
+            string num1 = to_string(sum);
+            for (char c:num1){
+                int x=c-'0';
+                v.push_back(x);
+            }
+            
+        }
+    }
+};

@@ -1,0 +1,16 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        string reverted;
+        string a = to_string(x);
+        for(int i=a.size()-1;i>=0;i--){
+            reverted += a[i];
+        }
+        if(reverted == a) return true;
+        else {return false;}
+    }
+};

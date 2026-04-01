@@ -1,0 +1,13 @@
+#include <iostream>
+using namespace std;
+class Solution {
+public:
+    int lengthOfLastWord(string s) {
+        while(!s.empty() && s.back()==' '){
+            s.pop_back();
+        }
+        int lastWhiteSpace = s.find_last_of(' ');
+        if(lastWhiteSpace == std::string::npos) lastWhiteSpace = -1;// Found nothing
+        return s.size() - lastWhiteSpace - 1;
+    }
+};

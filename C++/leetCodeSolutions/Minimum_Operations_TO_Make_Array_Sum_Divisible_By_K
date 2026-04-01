@@ -1,0 +1,7 @@
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int k) {
+        //Remaninder is equal to how many times you need to change number in vector.
+        return accumulate(nums.begin(), nums.end(), 0)%k;
+    }
+};

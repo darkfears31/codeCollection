@@ -1,0 +1,11 @@
+class Solution {
+public:
+    int hammingWeight(int n) {
+        string binary=bitset<32>(n).to_string(); // Convert to binary
+        int count{0};
+        for(char c:binary){
+            if(c=='1') count++;
+        }
+        return count;
+    }
+};
