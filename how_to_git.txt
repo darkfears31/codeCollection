@@ -1,5 +1,11 @@
-1.git init
-2.git add .
-3.git commit -m "smth"
-4.git remote -v
-5.git push origin main
+# 1. Check status of your changes
+git status
+
+# 2. Stage all changes
+git add .
+
+# 3. Commit changes with a message
+git commit -m "Your commit message here"
+
+# 4. Push to GitHub
+git push origin main
