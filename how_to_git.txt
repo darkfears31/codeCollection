@@ -1,3 +1,4 @@
+# tried
 # 1. Check status of your changes
 git status
 
