@@ -1,0 +1,23 @@
+#include <vector>
+#include <iostream>
+using namespace std;
+class Solution {
+public:
+    bool isValid(string s) {
+        vector<char> v;
+        for(char c : s){
+            if(c == '(' || c == '[' || c == '{') v.push_back(c);
+            else{
+                if(v.empty()){
+                    return false;
+                }    
+                char opener = v.back();
+                v.pop_back();
+                if(c == ')' && opener != '(') return false;
+                if(c == '}' && opener != '{') return false;
+                if(c == ']' && opener != '[') return false;
+            }
+        }
+        return v.empty();
+    }
+};

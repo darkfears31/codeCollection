@@ -1,0 +1,17 @@
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        string prefix="";
+        sort(strs.begin(), strs.end());
+        string firstW = strs[0], lastW = strs[strs.size()-1];
+        for(int i = 0;i<min(firstW.size(), lastW.size());i++){
+            if(firstW[i]!=lastW[i]) return prefix;
+            else {prefix+=firstW[i];}
+        }
+        return prefix;
+    }
+};

@@ -1,0 +1,8 @@
+class Solution {
+public:
+    int reverseBits(int n) {
+        string binary=bitset<32>(n).to_string(); //Integer to Binary String
+        reverse(binary.begin(), binary.end());
+        return stoi(binary, nullptr, 2); //Convert Binary String to Integer
+    }
+};

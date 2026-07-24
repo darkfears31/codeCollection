@@ -1,0 +1,9 @@
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        //XOR logic: Same numbers dissapear only different remains
+        int x=0;
+        for(int a:nums) x=x^a;
+        return x;
+    }
+};

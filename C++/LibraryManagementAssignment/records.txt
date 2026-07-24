@@ -1,0 +1,9 @@
+DVD|5|The Lion King|Roger Allers|1994|88|G|1|0.5
+Book|31|Clean Code|Robert C. Martin|2008|431|Technology|1|0.5
+Book|100|A Brief History of Time|Stephen Hawking|1988|212|Science|1|0.5
+Book|101|The Great Gatsby|F. Scott Fitzgerald|1925|180|Fiction|1|0.5
+DVD|201|Inception|Christopher Nolan|2010|148|PG-13|1|0.5
+Magazine|300|Time|Edward Felsenthal|2024|July|301|1|0.3
+Research Paper|409|Attention Is All You Need|Vaswani et al.|2017|NeurIPS|10.48550/arXiv.1706.03762|1|0.5
+Research Paper|451|BERT: Pre-training of Deep Bidirectional Transformers|Devlin et al.|2019|NAACL|10.18653/v1/N19-1423|1|0.5
+DVD|591|The Dark Knight|Christopher Nolan|2008|152|PG-13|1|0.5
