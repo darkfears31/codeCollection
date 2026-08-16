@@ -1,0 +1,14 @@
+class Solution {
+public:
+    ListNode* tmp;
+    bool isPalindrome(ListNode* head) {
+        tmp = head;
+        return check(head);
+    }
+    bool check(ListNode* head){
+        if(head==nullptr) return true;
+        bool isPal = check(head->next) & (tmp->val == head->val);
+        tmp=tmp->next;
+        return isPal;
+    }
+};
