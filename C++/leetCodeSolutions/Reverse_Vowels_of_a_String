@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string reverseVowels(string s) {
+        string a=s;
+        string vowels="aeiouAEIOU";
+        vector<char> tmp;
+        for(int i=s.size()-1;i>=0;i--){
+            for(int j=0;j<vowels.size();j++){
+                if(s[i]==vowels[j]) tmp.push_back(s[i]);
+            }
+        }
+        int index=0;
+        for(int i=0;i<a.size();i++){
+            for(int j=0;j<vowels.size();j++){
+                if(a[i]==vowels[j]){
+                    a[i]=tmp[index];
+                    index+=1;
+                    break;
+                }
+            }
+        }
+        return a;
+    }
+};
