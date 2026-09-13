@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool isPerfectSquare(int num) {
+        int L=1;
+        int H=num;
+        while(H>=L){
+            long long M = L + (H-L)/2;
+            long long sqrt = M*M;
+            if(sqrt == num) return true;
+            else if(sqrt > num) H=M-1;
+            else {L=M+1;}
+        }
+        return false;
+    }
+};
