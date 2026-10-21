@@ -1,0 +1,103 @@
+GNU/Linux exercises
+Create directories of all possible two-character names with the hexadecimal characters
+  touch {{0..9},{A..F}}{{0..9},{A..F}} --> creates every file with hexadecimal name 00 - FF
+
+touch {a,A}{b,B}.txt - creates files with name --> ab.txt  aB.txt  Ab.txt  AB.txt
+
+Create all possible two-character filenames with A and B symbols:
+  touch {A,B}{A,B}.txt --> AA.txt  AB.txt  BA.txt  BB.txt
+
+Create all possible four-character filenames with A, B and C symbols:
+   touch {A..C}{A..C}{A..C}{A..C}.txt --> AAAA.txt  AACA.txt  ABBA.txt  ACAA.txt  ACCA.txt ...etc
+
+In the directory “test”, create all possible tree-character with \, $, @ and ' symbols:
+  touch {\\,\$,@,\'}{\\,\$,@,\'}{\\,\$,@,\'} --> '''   '@'   '\\'   @''   @@' ...etc
+  because of the special characters -> \ $ and ' --> treating them as normal text is needed. Using `\` before typing them helps.
+
+Create 10000 html extension files in the HTML directory. Do the operation in the Shell with one command: 
+  touch file{1..10000}.html
+
+Create filenames "name1", "name2" and "name3" with and without the "txt" file extension:
+  touch name{1..3}{,.txt} --> name1  name1.txt  name2  name2.txt  name3  name3.txt
+  the {,.txt} means type nothing or `.txt`
+
+Create filenames "name1", "name2" and "name3" with the "txt" file extension. The file extension should be given in all character
+case variants - uppercase, lowercase and mixed: txt, txT,… TXT:
+  touch name{1..3}.{t,T}{x,X}{t,T} --> name1.txt  name1.tXt ... name3.TxT  name3.TXT
+  {t,T} means use t or T
+
+Create all possible three-character directory name variants withdigits. In each directory create one-character, two-character, 
+three-character and four-character filenames using the following symbols: A, B and C:
+  First let's do nesting to make files like --> A, AB, ABC, AA, AAC ....
+   It will be: touch {A,B,C}{,{A,B,C}{,{A,B,C}{,{A,B,C}}}}  # used ls | wc -l (wc -> word count, -l -> number of lines.) to know if its really it or not.
+  Then join it with directories: 
+    mkdir {0..9}{0..9}{0..9} && touch {0..9}{0..9}{0..9}/{A,B,C}{,{A,B,C}{,{A,B,C}{,{A,B,C}}}}
+
+With same directories list All two-character filename located in directories whose name does not include the symbol "5":
+  ls [^5][^5][^5] | grep -E '^..$'
+    ls [^5][^5][^5] --> [^5] means that it doesn't start with number `5`, but after that [^5] is used again,
+      meaning that it won't display directory that contains 5 as its second number and so on.
+  `grep -E '^..$` --> `-E` means extended regex, so `grep` doesn't treat special characters as normal characters. 
+    '^..$' --> `..` means any character followed with any character, `^` means start of the word, `$` means end of the word, so together they mean
+      list all the file who's name is two any characters. If `^...$` was written it would mean 3 any characters wide. 
+
+With same directories list All one and three-character filenames not containing "B"
+and located in the directory name including the only symbols "1", "3" and "9" : 
+    -v, --invert-match
+        Invert the sense of matching, to select non-matching lines.
+    So let's use inverted `grep`:
+      ls {1,3,9}{1,3,9}{1,3,9} | grep -v 'B' --> means find everything that doesn't contain `B`.
+
+Suppose you have a lot of image files with jpg, bmp and png extensions in the "Photos/" directory. Select the jpg and png
+files containing at least one digit in the filename and whose first letter is between D to P : 
+  first let's create that files:
+    touch {A..Z}{{0..9},{a..z}}{{0..9},{a..z}}.{jpg,bmp,png} --> creates files that start with any letter from A->Z 
+      with combination of numbers or letters and its extension is jpg,bmp or png.
+  Then listing: 
+    ls | grep -E '^[D-P].*[0-9].*\.(png|jpg)$'
+      `^` --> beginning of the filename.
+      `[D-P]` --> any character from D to P.
+      `.*` --> any characters.
+      `[0-9]` --> any number from 0 to 9.
+      `.*[0-9].*` --> checks every character and if number is any one of them.
+      `\.` --> literal `.` (dot) `\` is used to not mistake it in special character.
+      `(png|jpg)` --> extension is `png` or `jpg`.
+      `$` --> end of the word.
+
+Suppose you have a lot of image files with jpg, bmp and png
+extensions in the "Photos/" directory. Select the jpg and png files (file extension can be given in uppercase, lowercase, or
+mixed cases) containing at least one digit in the filename and whose first letter is between D to P: 
+  First create files: 
+    touch {A..P}{{0..5},{a..f}}.{{j,J}{p,P}{g,G},{b,B}{m,M}{p,P},{p,P}{n,N}{g,G}} (reduced number of files to create)
+  Then list files:
+    ls | grep -iE '^[D-P].*[0-9].*\.(jpg|png)$'
+      `-i` --> means case insensitive. So all letters will be converted to lowercase.
+          which may not be what we want as first letters would also convert to lowercase.
+    ls | grep -E '^[D-P].*[0-9].*\.([jJ][pP][gG]|[pP][nN][gG])$' --> this command is more recommended as it will go trough all files
+        without converting any other letters to lowercase.
+
+Suppose you have a lot of video files with flv, vob and ogg
+extensions in the "Videos/" directory. Select the flv and ogg files (file extension can be given in uppercase, lowercase, or
+mixed cases) containing at least one digit in the filename and whose last letter is between K to Q: 
+  First create files:
+    touch {{0..6},{a..g}}{{0..2},{b..d}}{I..R}.{{f,F}{l,L}{v,V},{v,V}{o,O}{b,B},{o,O}{g,G}{g,G}}
+  List files:
+    ls | grep -E '^.*[0-9].*[K-Q]\.([fF][lL][vV]|[oO][gG][gG])$' (pretty much same command as written above.)
+
+Suppose you have a lot of documents with pdf and txt extensions in the "Documents/" directory. Select the seven-
+character (excluding the extension) .pdf files and the .txt files containing at least 2 digits and whose first letter is between C to R:
+  First let's create files:
+    touch {{B..W},{1..3}}{h..l}{{6..7},{a..d}}{m..o}{x..z}{4..6}{a..b}.{txt,pdf}
+  Now main objective:
+    ls | grep -E '^[C-R].*[0-9].*[0-9].*\.txt$|^.{7}.pdf$' --> `|` used to combine two commands.    
+
+Suppose you have a filename foo in the bar/ directory containing the full path to another filename.
+Display the size of the latter file on the screen. Do the operation in the shell with and without a pipe.
+  ls bar/* | xargs cat | xargs cat --> without "bar/*" it would just display filename `foo` and it would
+    lead to error because `cat` would try to read just foo in directory it is ran from.
+      with `bar/*` we would get `bar/foo` and cat would will work correctly.
+  cat $(cat $(ls bar/*)) --> without pipes.
+  
+    
+    
+
