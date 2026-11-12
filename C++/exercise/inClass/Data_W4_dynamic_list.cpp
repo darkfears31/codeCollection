@@ -42,8 +42,8 @@ public:
     size++;
   }
   void insertAt(mytype val, int index){
-    if(index<capacity && index>=0 && index!=size){
-      for(int i=size; i>index;i--){
+    if(index<capacity && index>=0 && index<=size){
+      for(int i=size; i>=index;i--){
         mylist[i] = mylist[i-1];
       }
       mylist[index]=val;
