@@ -1,6 +1,3 @@
-class test:
-    def __init__(self, at1, at2):
-        self.attr1 = at1
         self.attr2 = at2
 
     def __str__(self):

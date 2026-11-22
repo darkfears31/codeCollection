@@ -1,114 +1,36 @@
-#class Test:
-#    def __init__(self, a, b):
-#        self.attr=a
-#        self.attr2=b
-#
-#    def add_attr(self,a):
-#        self.attr2=a 
-#
-#t1=Test(10, 30)
-#print(t1.attr)
-#
-#try:
-#    print(t1.attr2)
-#except:
-#    print("doesnt have such attribute.\n")
-#
-#t1.attr3=90
-#try:
-#    print(t1.attr3)
-#except:
-#    print("doesnt have such attribute.\n")
+import threading as thr
+from random import randint as rt
+from time import perf_counter
 
-#class Test:
-#    cl_lev_attr="class attribute"
-#    def __init__(self, a, b):
-#        self.attr1=a
-#
-#t1 = Test(1,2)
-#print(t1.cl_lev_attr)
-#print(Test.cl_lev_attr)
-#
-#t1.cl_lev_attr="instance attribute"
-#print(t1.cl_lev_attr)
-#print(Test.cl_lev_attr)
-#
-#Test.cl_lev_attr="rame"
-#t2 = Test(3,4)
-#print(t1.cl_lev_attr)
-#print(t2.cl_lev_attr)
-#print(Test.cl_lev_attr)
+def fill(a=1,b=100,row=20,col=1000000):
+    funn =lambda a,b,c: [(rt(a,b), rt(a,b),rt(a,b)) for _ in range(col)]
+    return [funn(a,b,col) for _ in range(row)]
 
+def check(tr):
+    a,b,c = sorted(tr)
+    return a+b>c 
 
-#class Parent:
-#    def __init__(self, a, b):
-#        self._attr1=a # protected
-#        self.__attr2=b # private
-#    def __str__(self):
-#        a=self._attr1 
-#        b=self.__attr2
-#        return f"_attr1={a}, __attr2={b}"
-#
-#class Child(Parent):
-#    def __init__(self, a, b, c):
-#        super().__init__(a,b)
-#        self.attr3=c
-#    def __str(self):
-#        return f"{super().__str__()}, attr3={self.attr3}"
-#
-#c = Child(1,2,3)
-#print(c.attr3, c._attr1)
-#print(c)
+def st_func(ar):
+    st = perf_counter()
+    l_arr=[]
+    for a in ar:
+        l_arr.append(check(a))
+    a = count = sum(check(tr) for tr in ar)
+    print(f"Standart case: {perf_counter()-st}")
 
-#class Test:
-#    cl_lev_attr='class attriute'
-#    def __init__(self, a):
-#        self.__attr1=a
-#
-#    @property
-#    def attr(self):
-#        return self.__attr1
-#
-#    @attr.setter
-#    def attr(self, value):
-#        self.__attr1=value
-#    
-#t=Test(10)
-#try:
-#    print(t.__attr1)
-#except:
-#    print("error")
-#
-#print(t.attr)
-#t.attr=20
-#print(t.attr)
+def th_func(ar):
+    st = perf_counter()
+    th_arr=[thr.Thread(target=check, args=(tr,)) for tr in ar]
+    for th in th_arr:
+        th.start()
+    for th in th_arr:
+        th.start()
+    for th in th_arr:
+        th.join()
+    print(f"Thread    case: {perf_counter()-st}")
 
-from abc import ABCMeta, abstractmethod
-
-class Parent(metaclass=ABCMeta):
-    def __init__(self, a):
-        self._attr1=a
-    @staticmethod
-    def st_method():
-        print('static method.')
-    def getAtt(self):
-        return self._attr1
-    def some_method(self):
-        pass
-
-class Child(Parent):
-    def __init__(self, a):
-        super().__init__(a)
-    def some_method(self):
-        print('some_method() was overriden')
-
-p=Parent(1)
-print(p.getAtt())
-Parent.st_method()
-
-c=Child(2)
-print(c.getAtt())
-try:
-    c.some_method()
-except:
-    print("not implemented.")
+if __name__=='__main__':
+    arr = [(rt(1,100), rt(1,100),rt(1,100)) for _ in range(1000)]
+    print(arr[:5])
+    st_func(arr)
+    th_func(arr)
